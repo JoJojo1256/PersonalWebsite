@@ -24,3 +24,61 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Alte Haas Grotesk";
+  src: url("/AlteHaasGroteskRegular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Alte Haas Grotesk";
+  src: url("/AlteHaasGroteskBold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@layer base {
+  body {
+    @apply bg-black text-white;
+  }
+}
+
+@keyframes flicker {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.4;
+  }
+  20% {
+    opacity: 0.1;
+  }
+  30% {
+    opacity: 0.7;
+  }
+  40% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  60% {
+    opacity: 0.5;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-flicker {
+  animation: flicker 4s ease-in-out forwards;
+}
