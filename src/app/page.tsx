@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect} from "react";
 import { useInView } from "./useInView"; // or inline it
 import { PowerGlitch } from "powerglitch";
 
