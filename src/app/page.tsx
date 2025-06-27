@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { useInView } from "./useInView"; // or inline it
 import { PowerGlitch } from "powerglitch";
@@ -21,54 +20,9 @@ export default function Home() {
   const [showCursor, setShowCursor] = useState(true);
   const [typedTechText, setTypedTechText] = useState("");
   const [showTechCursor, setShowTechCursor] = useState(false);
-  const imageRef = useRef<HTMLDivElement>(null);
+  //const imageRef = useRef<HTMLDivElement>(null);
   const fullName = "JO JOJO";
   const techText = "[0x274C] | LAT 34.05° N\n[2025.06.20] | LIVE";
-  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
-  const animateScramble = (
-    key: keyof typeof scrambledTexts,
-    targetText: string,
-    setFn: typeof setScrambledTexts,
-    delayPerChar = 50
-  ) => {
-    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
-
-    let index = 0;
-    const interval = setInterval(() => {
-      setFn((prev) => {
-        const newText = targetText
-          .split("")
-          .map((char, i) => {
-            if (i < index) return char;
-            if (char === " ") return " ";
-            return characters[Math.floor(Math.random() * characters.length)];
-          })
-          .join("");
-
-        return {
-          ...prev,
-          [key]: newText,
-        };
-      });
-
-      index++;
-
-      if (index > targetText.length) {
-        clearInterval(interval);
-      }
-    }, delayPerChar);
-  };
-
-  const scrambleText = (text: string) => {
-    return text
-      .split("")
-      .map((char) =>
-        char === " "
-          ? " "
-          : characters[Math.floor(Math.random() * characters.length)]
-      )
-      .join("");
-  };
 
   useEffect(() => {
     const cursorInterval = setInterval(() => {
@@ -339,10 +293,14 @@ export default function Home() {
     };
   }, []);
 
+  const [showMediumModal, setShowMediumModal] = useState(false);
+  // Modal state for Weenix link
+  const [showWeenixModal, setShowWeenixModal] = useState(false);
+
   return (
     <main className="relative bg-black text-white font-mono overflow-x-hidden">
       {/* Optional grainy background overlay */}
-      <div className="pointer-events-none absolute inset-0 z-0 mix-blend-soft-light bg-[url('/grain.png')] bg-repeat opacity-10 animate-[flicker_2s_infinite]"></div>
+      <div className="pointer-events-none absolute inset-0 z-0 bg-[url('/grain8.png')] bg-repeat "></div>
 
       {/* Hero Section */}
       <section className="relative h-screen w-full flex">
@@ -420,6 +378,10 @@ export default function Home() {
               alt="Halftone Face"
               className="w-full h-full object-contain grayscale-[60%]"
             />
+
+            {/* Corner brackets - thick and large */}
+            <div className="absolute top-4 left-4 w-16 h-16 border-l-6 border-t-6 border-red-600"></div>
+            <div className="absolute bottom-2 right-4 w-16 h-16 border-r-6 border-b-6 border-red-600"></div>
 
             {/* Sideways text overlay on image */}
             <div className="absolute left-[90%] top-15 bottom-10 h-full flex flex-col justify-between py-8 z-10">
@@ -525,7 +487,7 @@ export default function Home() {
       </section>
 
       {/* PROJECTS Section */}
-      <section className="relative w-full flex-col items-center justify-center py-32 bg-black">
+      <section className="relative w-full flex-col items-center justify-center py-32">
         {/* Section Title */}
         <h2
           className="glitch-projects text-6xl md:text-8xl lg:text-[10rem] font-bold text-red-600 font-['Alte_Haas_Grotesk'] leading-none mb-16 w-full text-left max-w-full overflow-x-hidden pl-8"
@@ -534,52 +496,115 @@ export default function Home() {
           PROJECTS
         </h2>
         {/* Project Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 w-full max-w-7xl px-8">
-          {[1, 2, 3].map((i) => (
-            <div
-              key={i}
-              className="relative bg-zinc-900 rounded-2xl overflow-hidden shadow-lg group h-[28rem] flex items-end"
-            >
-              {/* Project Image */}
-              <img
-                src="/project_placeholder.png"
-                alt="Project Placeholder"
-                className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-300"
-              />
-              {/* Title Overlay */}
-              <div className="absolute top-0 left-0 w-full px-6 pt-6 flex items-start justify-between">
-                <span
-                  className="text-3xl font-bold text-white drop-shadow-lg font-['Alte_Haas_Grotesk']"
-                  style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}
-                >
-                  PROJECT TITLE
-                </span>
-                <span
-                  className="text-md text-zinc-200 font-[neue-haas-grotesk-display] tracking-widest ml-4"
-                  style={{
-                    fontFamily: "neue-haas-grotesk-display, sans-serif",
-                    fontWeight: 500,
-                  }}
-                >
-                  JUN 2024
-                </span>
-              </div>
-              {/* Card Content Placeholder */}
-              <div className="relative z-10 w-full bg-gradient-to-t from-black/80 to-transparent p-6 rounded-b-2xl min-h-[5rem] flex items-end">
-                <p className="text-zinc-300 text-lg font-mono opacity-80">
-                  Project description goes here. This is a template card.
-                </p>
-              </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full px-8">
+          {/* WEENIX OS */}
+          <div
+            className="relative bg-zinc-900 overflow-hidden shadow-lg group aspect-square flex items-center justify-center cursor-pointer"
+            onClick={() => setShowWeenixModal(true)}
+          >
+            <img
+              src="/Weenix.png"
+              alt="Weenix OS"
+              className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-300 blur-sm"
+            />
+            <div className="relative z-10 text-left bg-transparent px-1 py-8 aspect-square flex flex-col items-start justify-center rounded">
+              <h3 className="text-sm font-bold text-red-600 font-['Alte_Haas_Grotesk'] mb-1">
+                WEENIX OS
+              </h3>
+              <p className="text-sm font-bold text-red-600 font-['Alte_Haas_Grotesk'] tracking-widest">
+                JAN -<br />
+                MAY 25
+              </p>
             </div>
-          ))}
+          </div>
+
+          {/* PNEUMONIA DETECTOR */}
+          <a
+            href="https://github.com/JoJojo1256/pneumonia-detector"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative bg-zinc-900 overflow-hidden shadow-lg group aspect-square flex items-center justify-center cursor-pointer"
+          >
+            <img
+              src="/PneumoniaDetector.png"
+              alt="Pneumonia Detector"
+              className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-300 blur-sm"
+            />
+            <div className="relative z-10 text-left bg-transparent px-1 py-8 aspect-square flex flex-col items-start justify-center rounded">
+              <h3 className="text-sm font-bold text-red-600 font-['Alte_Haas_Grotesk'] mb-1">
+                PNEUMONIA
+                <br />
+                DETECTOR
+              </h3>
+              <p className="text-sm font-bold text-red-600 font-['Alte_Haas_Grotesk'] tracking-widest">
+                DEC 24
+              </p>
+            </div>
+          </a>
+
+          {/* GRAPH THEORY VISUALIZER */}
+          <a
+            href="https://github.com/JoJojo1256/GraphVisualizer"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative bg-zinc-900 overflow-hidden shadow-lg group aspect-square flex items-center justify-center cursor-pointer"
+          >
+            <img
+              src="/GraphTheory.png"
+              alt="Graph Theory Visualizer"
+              className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-300 blur-sm"
+            />
+            <div className="relative z-10 text-left bg-transparent px-1 py-8 aspect-square flex flex-col items-start justify-center rounded">
+              <h3 className="text-sm font-bold text-red-600 font-['Alte_Haas_Grotesk'] mb-1">
+                GRAPH
+                <br />
+                THEORY
+                <br />
+                VISUA-
+                <br />
+                LIZER
+              </h3>
+              <p className="text-sm font-bold text-red-600 font-['Alte_Haas_Grotesk'] tracking-widest">
+                JUN 25
+              </p>
+            </div>
+          </a>
         </div>
+        {/* Weenix Modal */}
+        {showWeenixModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
+            <div className="bg-zinc-900 p-12 rounded-lg shadow-lg text-center max-w-md">
+              <p className="text-lg text-zinc-200 mb-8">
+                Since this was a classroom project, I cannot share the repo for
+                academic integrity, but I can take you to the assignment page.
+              </p>
+              <a
+                href="https://github.com/brown-cs1690/handout/wiki"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-6 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition mb-4"
+              >
+                View Assignment Page
+              </a>
+              <br />
+              <button
+                className="mt-2 px-6 py-2 bg-zinc-700 text-white rounded hover:bg-zinc-800 transition"
+                onClick={() => setShowWeenixModal(false)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        )}
       </section>
 
       {/* Links Section */}
-      <section className="relative w-full flex items-center justify-center py-48 bg-black">
+      <section className="relative w-full flex items-center justify-center py-48">
         <div className="grid grid-cols-2 gap-x-48 w-full max-w-full mx-auto ">
           <a
-            href="#"
+            href="https://github.com/JoJojo1256"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-[9.5rem] text-zinc-400 hover:text-red-600 transition-colors duration-300 text-left"
             style={{
               fontFamily: "neue-haas-grotesk-display, sans-serif",
@@ -590,7 +615,9 @@ export default function Home() {
             GITHUB
           </a>
           <a
-            href="#"
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-[9.5rem] text-zinc-400 hover:text-red-600 transition-colors duration-300 text-right"
             style={{
               fontFamily: "neue-haas-grotesk-display, sans-serif",
@@ -601,7 +628,9 @@ export default function Home() {
             RÉSUMÉ
           </a>
           <a
-            href="#"
+            href="https://linkedin.com/in/jo-jojo"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-[9.5rem] text-zinc-400 hover:text-red-600 transition-colors duration-300 text-left"
             style={{
               fontFamily: "neue-haas-grotesk-display, sans-serif",
@@ -612,7 +641,8 @@ export default function Home() {
             LINKEDIN
           </a>
           <a
-            href="#"
+            onClick={() => setShowMediumModal(true)}
+            //href="#"
             className="text-[9.5rem] text-zinc-400 hover:text-red-600 transition-colors duration-300 text-right"
             style={{
               fontFamily: "neue-haas-grotesk-display, sans-serif",
@@ -623,6 +653,20 @@ export default function Home() {
             MEDIUM
           </a>
         </div>
+        {/* Medium Modal */}
+        {showMediumModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
+            <div className="bg-zinc-900 p-12 rounded-lg shadow-lg text-center">
+              <p className="text-3xl text-zinc-200 mb-8">Coming soon</p>
+              <button
+                className="mt-4 px-6 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
+                onClick={() => setShowMediumModal(false)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        )}
       </section>
     </main>
   );
