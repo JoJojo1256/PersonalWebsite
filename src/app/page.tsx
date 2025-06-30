@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { useInView } from "./useInView"; // or inline it
 import { PowerGlitch } from "powerglitch";
 
@@ -307,7 +307,7 @@ export default function Home() {
         {/* Big Name Text - Bottom Left */}
         <div className="absolute bottom-0 left-0 z-20 glitch-name">
           <h1
-            className="text-[8rem] md:text-[12rem] lg:text-[15rem] font-bold text-red-600 font-['Alte_Haas_Grotesk'] leading-none"
+            className="text-[4rem] md:text-[8rem] lg:text-[15rem] font-bold text-red-600 font-['Alte_Haas_Grotesk'] leading-none"
             style={{ textShadow: "0 0 20px rgba(220, 38, 38, 0.8)" }}
           >
             {typedText}
@@ -317,7 +317,7 @@ export default function Home() {
 
         {/* Content Overlay */}
         <div className="relative z-10 w-full h-full">
-          <div className="absolute top-8 left-8 space-y-2">
+          <div className="absolute top-8 left-8 space-y-2 z-20">
             <p
               className="text-red-600 font-bold text-lg tracking-wide"
               style={{
@@ -371,7 +371,7 @@ export default function Home() {
         </div>
 
         {/* Halftone Image - Positioned over the big text */}
-        <div className="absolute right-0 top-0 z-5 w-3/4 h-full flex items-center justify-center">
+        <div className="absolute right-0 top-0 z-10 w-full md:w-3/4 h-full flex items-center justify-center">
           <div className="glitch-image w-full h-full relative">
             <img
               src="/halftone_2.png"
@@ -384,7 +384,7 @@ export default function Home() {
             <div className="absolute bottom-2 right-4 w-16 h-16 border-r-6 border-b-6 border-red-600"></div>
 
             {/* Sideways text overlay on image */}
-            <div className="absolute left-[90%] top-15 bottom-10 h-full flex flex-col justify-between py-8 z-10">
+            <div className="absolute left-[90%] top-15 bottom-10 h-full flex flex-col justify-between py-8 z-10 hidden md:flex">
               {/* Top text - 2005 */}
               <div className="transform -rotate-90 origin-left">
                 <p
@@ -441,7 +441,7 @@ export default function Home() {
         ref={quoteRef}
         className="relative h-[100vh] w-full flex items-center justify-center mt-[30vh]"
       >
-        <p className="text-7xl text-zinc-400 text-justify z-10 font-['Alte_Haas_Grotesk'] font-bold max-w-2xl mx-auto text-balance">
+        <p className="text-2xl md:text-4xl lg:text-7xl text-zinc-400 text-center z-10 font-['Alte_Haas_Grotesk'] font-bold max-w-2xl mx-auto px-4">
           Life can be magnificent and overwhelming — that is the whole tragedy.
           Without{" "}
           <span
@@ -490,7 +490,7 @@ export default function Home() {
       <section className="relative w-full flex-col items-center justify-center py-32">
         {/* Section Title */}
         <h2
-          className="glitch-projects text-6xl md:text-8xl lg:text-[10rem] font-bold text-red-600 font-['Alte_Haas_Grotesk'] leading-none mb-16 w-full text-left max-w-full overflow-x-hidden pl-8"
+          className="glitch-projects text-3xl md:text-6xl lg:text-[10rem] font-bold text-red-600 font-['Alte_Haas_Grotesk'] leading-none mb-16 w-full text-left pl-4 md:pl-8"
           style={{ textShadow: "0 0 30px rgba(220, 38, 38, 0.8)" }}
         >
           PROJECTS
@@ -599,13 +599,13 @@ export default function Home() {
       </section>
 
       {/* Links Section */}
-      <section className="relative w-full flex items-center justify-center py-48">
-        <div className="grid grid-cols-2 gap-x-48 w-full max-w-full mx-auto ">
+      <section className="relative w-full flex items-center justify-center py-24 md:py-48 px-4">
+        <div className="grid grid-cols-2 gap-x-8 md:gap-x-48 gap-y-8 md:gap-y-0 w-full max-w-full mx-auto">
           <a
             href="https://github.com/JoJojo1256"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[9.5rem] text-zinc-400 hover:text-red-600 transition-colors duration-300 text-left"
+            className="text-4xl md:text-6xl lg:text-[9.5rem] text-zinc-400 hover:text-red-600 transition-colors duration-300 text-left"
             style={{
               fontFamily: "neue-haas-grotesk-display, sans-serif",
               fontWeight: 500,
@@ -618,7 +618,7 @@ export default function Home() {
             href="/resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[9.5rem] text-zinc-400 hover:text-red-600 transition-colors duration-300 text-right"
+            className="text-4xl md:text-6xl lg:text-[9.5rem] text-zinc-400 hover:text-red-600 transition-colors duration-300 text-right"
             style={{
               fontFamily: "neue-haas-grotesk-display, sans-serif",
               fontWeight: 500,
@@ -631,7 +631,7 @@ export default function Home() {
             href="https://linkedin.com/in/jo-jojo"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[9.5rem] text-zinc-400 hover:text-red-600 transition-colors duration-300 text-left"
+            className="text-4xl md:text-6xl lg:text-[9.5rem] text-zinc-400 hover:text-red-600 transition-colors duration-300 text-left"
             style={{
               fontFamily: "neue-haas-grotesk-display, sans-serif",
               fontWeight: 500,
@@ -640,10 +640,9 @@ export default function Home() {
           >
             LINKEDIN
           </a>
-          <a
+          <button
             onClick={() => setShowMediumModal(true)}
-            //href="#"
-            className="text-[9.5rem] text-zinc-400 hover:text-red-600 transition-colors duration-300 text-right"
+            className="text-4xl md:text-6xl lg:text-[9.5rem] text-zinc-400 hover:text-red-600 transition-colors duration-300 text-right"
             style={{
               fontFamily: "neue-haas-grotesk-display, sans-serif",
               fontWeight: 500,
@@ -651,13 +650,15 @@ export default function Home() {
             }}
           >
             MEDIUM
-          </a>
+          </button>
         </div>
         {/* Medium Modal */}
         {showMediumModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
-            <div className="bg-zinc-900 p-12 rounded-lg shadow-lg text-center">
-              <p className="text-3xl text-zinc-200 mb-8">Coming soon</p>
+            <div className="bg-zinc-900 p-8 md:p-12 rounded-lg shadow-lg text-center mx-4">
+              <p className="text-xl md:text-3xl text-zinc-200 mb-8">
+                Coming soon
+              </p>
               <button
                 className="mt-4 px-6 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
                 onClick={() => setShowMediumModal(false)}
